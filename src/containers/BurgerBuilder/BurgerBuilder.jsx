@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Auxillary from '../../hoc/Auxillary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENTS_PRICES = { salad: 0.5, chees: 0.8, meat: 1.5, beef: 1.2};
 
@@ -16,6 +18,7 @@ class BurgerBuilder extends Component {
         },
         totalPrice: 4,
         purchasable: false,
+        purchasing: false
     };
 
     // updatePurchasableState() {
@@ -78,6 +81,18 @@ class BurgerBuilder extends Component {
         });
     }
 
+    updatePurchasingState = () => {
+        this.setState({purchasing: true});
+    };
+
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    };
+
+    purchaseContinueHandler = () => {
+        alert('Your purchase is continue.');
+    };
+
 
     render() {
         const disabledInfo = { ...this.state.ingredients }; //{chees: 2, salad:1 ....}
@@ -88,13 +103,21 @@ class BurgerBuilder extends Component {
 
         return(
             <Auxillary>
+                <Modal purchasing={this.state.purchasing} removeBackdrop={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients} 
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                        price={this.state.totalPrice} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                     addedIngredient = {this.addIngredientHandler}
                     removedIngredient = {this.removeIngredientHandler}
                     disabledInfo={disabledInfo}
                     price={this.state.totalPrice}
-                    purchasable={!this.state.purchasable} />
+                    purchasable={!this.state.purchasable}
+                    purchased={this.updatePurchasingState} />
             </Auxillary>
         );
     }
