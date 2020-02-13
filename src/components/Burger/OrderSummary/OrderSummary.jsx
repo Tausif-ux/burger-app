@@ -3,11 +3,10 @@ import Aux from '../../../hoc/Auxillary';
 import Button from '../../UI/Button/Button';
 
 const OrderSummary = (props) => {
-    const orderSummary = Object.keys(props.ingredients).
-        map(ingKey => <li key={ingKey} style={ {textTransform: "capitalize"} }>
+    const orderSummary = Object.keys(props.ingredients)
+        .map(ingKey => <li key={ingKey} style={ {textTransform: "capitalize"} }>
                 {ingKey}: {props.ingredients[ingKey]}
             </li>);
-    
     
     return ( 
         <Aux>

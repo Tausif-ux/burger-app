@@ -3,7 +3,7 @@ import classes from './Backdrop.module.css';
 
 const Backdrop = (props) => {
     return ( 
-        props.purchasing ? <div className={classes.Backdrop} onClick={props.clicked}></div> : null
+        props.show ? <div className={classes.Backdrop} onClick={props.clicked}></div> : null
      );
 }
  
