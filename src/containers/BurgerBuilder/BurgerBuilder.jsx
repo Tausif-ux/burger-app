@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Auxillary from '../../hoc/Auxillary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
-import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import Modal from '../../components/UI/Modal/Modal';
 
 const INGREDIENTS_PRICES = { salad: 0.5, chees: 0.8, meat: 1.5, beef: 1.2};
 
@@ -45,7 +45,7 @@ class BurgerBuilder extends Component {
         return {purchasable: updatedPurchasableState};
     }
 
-    addIngredientHandler = type => {
+    addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount + 1;
         const updatedIngredient = { ...this.state.ingredients };

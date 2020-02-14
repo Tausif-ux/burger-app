@@ -7,6 +7,7 @@ class Modal extends Component {
 
     shouldComponentUpdate(nextProps) {
         return nextProps.purchasing !== this.props.purchasing;
+       
     }
     
     render() {
