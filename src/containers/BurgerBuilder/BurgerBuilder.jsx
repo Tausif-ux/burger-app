@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import Auxillary from '../../hoc/Auxillary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -90,7 +92,25 @@ class BurgerBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
-        alert('Your purchase is continue.');
+        const order = { 
+            ingredients : this.state.ingredients, 
+            totalPrice: this.state.totalPrice,
+            name: 'Tausif Khan',
+            address: {
+                building: 'Yas Tower',
+                street: 'MG street',
+                city: {name: 'Mumbai',
+                pincode: 102934,
+                state: 'Maharashtra'}
+            },
+            deliverMode: 'Express-fast',
+            email: 'test@test.com',
+            mobile: '19203948495'
+        }
+
+        axios.post("https://react-burger-app-84b45.firebaseio.com/order.json", order)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
     };
 
 
