@@ -19,6 +19,10 @@ class Layout extends Component {
         });
     }
 
+    componentDidMount() {
+        console.log('Layout', this.props);
+    }
+
     render() { 
         return ( 
             <Aux>
@@ -29,7 +33,9 @@ class Layout extends Component {
                     closed={this.sideDrawerClosedHandler} 
                     open={this.state.showSideDrawer} />
                 <main 
-                    className={classes.Layout}>{ this.props.children }</main>
+                    className={classes.Layout}>
+                    { this.props.children }
+                </main>
             </Aux>
          );
     }

@@ -1,8 +1,10 @@
 import React from 'react';
+
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import classes from './Burger.module.css';
 
 const Burger = (props) => {
+    console.log(props);
 
     let transformedIngredients = Object.keys(props.ingredients)
 
@@ -31,6 +33,5 @@ const Burger = (props) => {
             <BurgerIngredient type="bread-bottom" />
         </div>
      );
-}
- 
+} 
 export default Burger;
