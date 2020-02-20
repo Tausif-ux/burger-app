@@ -27,4 +27,9 @@
     background-color: #ccc;
 }
 
+.Invalid {
+    border: red;
+    background-color: rgb(248, 108, 108);
+}
+
 

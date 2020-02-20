@@ -4,8 +4,6 @@ import axios from '../../axios-orders';
 import Order from '../../components/Order/Order';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-import classes from './Orders.module.css';
-
 class Orders extends Component {
     state = { 
         orders: [],

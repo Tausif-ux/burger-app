@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Aux from '../../../hoc/Auxillary';
 import Button from '../../UI/Button/Button';
