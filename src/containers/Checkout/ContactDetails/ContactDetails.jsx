@@ -19,8 +19,8 @@ class ContactDetails extends Component {
                 value: '',
                 validationRules: {
                     required: true,
-                    minimum: 3,
-                    maximum: 8
+                    minLength: 3,
+                    maxLegth: 8
                 },
                 isValid: false,
                 touched: false
@@ -34,8 +34,8 @@ class ContactDetails extends Component {
                 value: '',
                 validationRules: {
                     required: true,
-                    minimum: 3,
-                    maximum: 8
+                    minLength: 3,
+                    maxLegth: 8
                 },
                 isValid: false,
                 touched: false
@@ -49,7 +49,7 @@ class ContactDetails extends Component {
                 value: '',
                 validationRules: {
                     required: true,
-                    minimum: 6,
+                    minLength: 6,
                 },
                 isValid: false,
                 touched: false
@@ -88,10 +88,13 @@ class ContactDetails extends Component {
                         {value: 'cheapest', optionText: 'Cheapest'}
                     ],
                 },
-                value: ''
+                value: '',
+                validationRules: {}, //No validations hence empty object
+                isValid: true //No validation rule hence isValid=true
             },
         },
         isLoading: false,
+        disabled: true
      };
 
     orderHandler = event => {
@@ -109,7 +112,6 @@ class ContactDetails extends Component {
             contactDetails: contactData
             
         }
-        console.log(order);
 
         axios.post("orders.json", order)
         .then(response => { 
@@ -123,18 +125,21 @@ class ContactDetails extends Component {
     };
 
     inputChangedHandler = (event, inputType) => {
-        // console.log(event.target.value);
+
         const updatedFormElement = {...this.state.formElements[inputType]};
         updatedFormElement.value = event.target.value;
-        if(updatedFormElement.validationRules) {
-            updatedFormElement.isValid = this.validation(event.target.value, updatedFormElement.validationRules);
-        }
+        updatedFormElement.isValid = this.validation(event.target.value, updatedFormElement.validationRules);
         updatedFormElement.touched = true;
+
         const updatedFormElements = {...this.state.formElements};
         updatedFormElements[inputType] = updatedFormElement;
-        console.log(updatedFormElements);
-        this.setState({formElements: updatedFormElements});
+        
+        let isValid = true;
+        for(let inputElementIdentifier in updatedFormElements) {
+            isValid = updatedFormElements[inputElementIdentifier].isValid && isValid; 
+        }
 
+        this.setState({formElements: updatedFormElements, disabled: !isValid});
     };
 
     validation = (value, rules) => {
@@ -144,19 +149,18 @@ class ContactDetails extends Component {
             isValid = value.trim() !== '' && isValid;
         }
 
-        if(rules.minimum) {
-            isValid = value.length >= rules.minimum && isValid;
+        if(rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid;
         }
 
-        if(rules.maximum) {
-            isValid = value.length <= rules.maximum && isValid;
+        if(rules.maxLegth) {
+            isValid = value.length <= rules.maxLegth && isValid;
         }
 
         return isValid;
     };
 
     render() {
-
         const formElemetsArray = [];
         for(let inputElementIdentifier in this.state.formElements) {
             formElemetsArray.push({ id: inputElementIdentifier, ...this.state.formElements[inputElementIdentifier] });
@@ -178,7 +182,7 @@ class ContactDetails extends Component {
                         changed={event => this.inputChangedHandler(event, formElement.id)} />
                     );
                 })}
-                <Button btnType='Success'>ORDER</Button>
+                <Button btnType='Success' disabled={this.state.disabled}>ORDER</Button>
             </form>
         );
         if (this.state.isLoading) {

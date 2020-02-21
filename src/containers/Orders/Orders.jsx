@@ -14,7 +14,6 @@ class Orders extends Component {
         this.setState({isLoading: true});
         axios.get('orders.json') //Xasasoap: {ingredients:{sala:1, meat:2}..}, name:'Tausif, email: 'example@exa.com' }---[{salad: 1, meat:2},..}
         .then(response => {
-            console.log(response);
             this.setState({isLoading: false});
             const modifiedOrders = [];
             for (let key in response.data) {
@@ -30,7 +29,7 @@ class Orders extends Component {
 
     render() {
         let orders = this.state.orders.map(order => {
-            return <Order key={order.id} ingredients={ order.ingredients} price={order.totalPrice} />
+            return <Order key={order.id} ingredients={ order.ingredients} price={+order.totalPrice} />
         });
 
         if(this.state.isLoading) {
