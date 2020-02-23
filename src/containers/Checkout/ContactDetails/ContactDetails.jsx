@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-orders';
+import { connect } from 'react-redux';
 
 import classes from './ContactDetails.module.css';
 
@@ -107,8 +108,8 @@ class ContactDetails extends Component {
         }
 
         const order = { 
-            ingredients : this.props.ingredients, 
-            totalPrice: this.props.price.toFixed(2),
+            ingredients : this.props.ingrts, 
+            totalPrice: (this.props.price).toFixed(2),
             contactDetails: contactData
             
         }
@@ -120,7 +121,7 @@ class ContactDetails extends Component {
         })
         .catch(error => { 
             this.setState({isLoading: false});
-            console.log(error);
+            // console.log(error);
         });
     };
 
@@ -197,5 +198,12 @@ class ContactDetails extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        ingrts: state.ingredients,
+        price: state.totalPrice
+    };
+};
  
-export default ContactDetails;
+export default connect(mapStateToProps)(ContactDetails);
