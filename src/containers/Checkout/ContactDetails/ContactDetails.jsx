@@ -110,8 +110,7 @@ class ContactDetails extends Component {
         const order = { 
             ingredients : this.props.ingrts, 
             totalPrice: (this.props.price).toFixed(2),
-            contactDetails: contactData
-            
+            contactDetails: contactData  
         }
 
         axios.post("orders.json", order)
@@ -176,7 +175,6 @@ class ContactDetails extends Component {
                         elementType={formElement.elementType}
                         elementConfig={formElement.elementConfig}
                         value={formElement.value}
-                        name={formElement.id}
                         invalid={!formElement.isValid}
                         shouldValidate={formElement.validationRules}
                         touched={formElement.touched}

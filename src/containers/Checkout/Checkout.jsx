@@ -7,26 +7,6 @@ import ContactDetails from './ContactDetails/ContactDetails';
 
 
 class Checkout extends Component {
-    // state = { 
-    //     ingredients: {},
-    //     totalPrice: 0
-    //  }
-
-    // componentDidMount() {
-    //     const query = new URLSearchParams(this.props.location.search); //'sala=1&meat=2...'
-    //     const ingredients = {};
-    //     let price = 0;
-    //     for (let param of query.entries()) {
-    //         // yields ['start', '5']
-    //         if(param[0] === 'price') {
-    //             price = +param[1]
-
-    //         } else {
-    //             ingredients[param[0]] = +param[1];
-    //         }
-    //     }
-    //     this.setState({ingredients: ingredients, totalPrice: price});
-    // }
 
     checkoutContinueHandler = () => {
         this.props.history.replace('/checkout/contact-details');
@@ -35,6 +15,7 @@ class Checkout extends Component {
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
     };
+    
     render() { 
         return ( 
             <div>
