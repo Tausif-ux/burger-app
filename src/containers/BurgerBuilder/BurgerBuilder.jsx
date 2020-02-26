@@ -10,14 +10,13 @@ import Aux from '../../hoc/Auxillary';
 
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actionCreator from '../../store/actions/ingredients';
+import * as actionCreator from '../../store/actions/burgerBuilder';
 
 
 class BurgerBuilder extends Component {
 
     state = {
-        purchasing: false,
-        isLoading: false,
+        purchasing: false
     };
 
     updatePurchasingState = () => {
@@ -78,10 +77,6 @@ class BurgerBuilder extends Component {
                     purchaseContinued={this.purchaseContinueHandler}
                     price={this.props.price} />
             );
-
-            if (this.state.isLoading) {
-                orderSummary = <Spinner />
-            }
         }
         
         return (
@@ -98,9 +93,9 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice,
-        err: state.error
+        ings: state.bgrBldr.ingredients,
+        price: state.bgrBldr.totalPrice,
+        err: state.bgrBldr.error
     };
 };
 

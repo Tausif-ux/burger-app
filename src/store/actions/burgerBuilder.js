@@ -1,17 +1,17 @@
-import * as actionType from './actionsType';
+import * as actionType from './actionTypes';
 import axios from '../../axios-orders';
  
 
 //synchronous actions
-const funcIngredients = ing => {
+const setIngredients = ing => {
     return {
         type: actionType.INIT_INGREDIENTS, ingredients: ing
     };
 };
 
-const onError = err => {
+const onError = () => {
     return {
-        type: actionType.ERROR, error: err
+        type: actionType.INIT_INGREDIENTS_ERROR
     };
 };
 
@@ -19,8 +19,8 @@ const onError = err => {
 export const initIngredients = () => {
     return dispatch => {
         axios.get("ingredients.json")
-        .then(response => dispatch(funcIngredients(response.data)))
-        .catch(error => dispatch(onError(error)));
+        .then(response => dispatch(setIngredients(response.data)))
+        .catch(error => dispatch(onError()));
     };
 
 };
