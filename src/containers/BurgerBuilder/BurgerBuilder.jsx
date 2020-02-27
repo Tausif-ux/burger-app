@@ -10,7 +10,7 @@ import Aux from '../../hoc/Auxillary';
 
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actionCreator from '../../store/actions/burgerBuilder';
+import * as actionCreator from '../../store/actions/index';
 
 
 class BurgerBuilder extends Component {
@@ -27,7 +27,8 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false});
     };
 
-    purchaseContinueHandler = () => {     
+    purchaseContinueHandler = () => {
+        this.props.onPurchaseInit();     
         this.props.history.push('/checkout');
     };
 
@@ -104,10 +105,9 @@ const mapDispatchToProps = dispatch => {
         onInitIngredients: () => dispatch(actionCreator.initIngredients()),
         onAddIngredient: ingType => dispatch(actionCreator.addIngredients(ingType)),
         onRemoveIngredient: ingType => dispatch(actionCreator.removeIngredients(ingType)),
-        onInitIngredients: () => dispatch(actionCreator.initIngredients()),       
+        onPurchaseInit: () => dispatch(actionCreator.purchaseInit())      
     };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
 
 

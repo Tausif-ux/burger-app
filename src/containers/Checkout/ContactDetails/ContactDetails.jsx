@@ -8,7 +8,7 @@ import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Forms/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import * as actionCtreator from '../../../store/actions/order';
+import * as actionCtreator from '../../../store/actions/index';
 
 class ContactDetails extends Component {
     state = {
@@ -91,7 +91,7 @@ class ContactDetails extends Component {
                         {value: 'cheapest', optionText: 'Cheapest'}
                     ],
                 },
-                value: '',
+                value: 'fastest',
                 validationRules: {}, //No validations hence empty object
                 isValid: true //No validation rule hence isValid=true
             },
@@ -113,7 +113,7 @@ class ContactDetails extends Component {
             contactDetails: contactData  
         }
 
-        this.props.onOrderBurger(orderData);
+        this.props.onOrderBurger(orderData, this.props.history.push);
     };
 
     inputChangedHandler = (event, inputType) => {
@@ -199,8 +199,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: orderData => dispatch(actionCtreator.purchaseBurger(orderData)),
+        onOrderBurger: orderData => dispatch(actionCtreator.purchaseBurger(orderData))
     };
 };
+
  
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactDetails, axios));
+

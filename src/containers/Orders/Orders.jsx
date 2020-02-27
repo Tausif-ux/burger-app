@@ -1,43 +1,42 @@
 import React, { Component } from 'react';
-import axios from '../../axios-orders';
+import { connect } from 'react-redux';
 
+import axios from '../../axios-orders';
 import Order from '../../components/Order/Order';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import * as actionCreator from '../../store/actions/index';
 
 class Orders extends Component {
-    state = { 
-        orders: [],
-        isLoading: false
-    }
 
     componentDidMount() {
-        this.setState({isLoading: true});
-        axios.get('orders.json') //Xasasoap: {ingredients:{sala:1, meat:2}..}, name:'Tausif, email: 'example@exa.com' }---[{salad: 1, meat:2},..}
-        .then(response => {
-            this.setState({isLoading: false});
-            const modifiedOrders = [];
-            for (let key in response.data) {
-                modifiedOrders.push({ ...response.data[key], id: key }); //[{salad: 1},.......]
-            }
-            this.setState({orders: modifiedOrders});
-        })
-        .catch(error => {
-            this.setState({isLoading: false});
-        });
-
+        this.props.onFetchOrdrs();
     }
 
     render() {
-        let orders = this.state.orders.map(order => {
-            return <Order key={order.id} ingredients={ order.ingredients} price={+order.totalPrice} />
-        });
+        let orders=<Spinner />
 
-        if(this.state.isLoading) {
-            orders=<Spinner />
+        if(!this.props.isLoading) {
+            orders = this.props.orders.map(order => {
+                return <Order key={order.id} ingredients={ order.ingredients} price={+order.totalPrice} />
+            });
         }
         
         return orders;        
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        orders: state.ordr.order,
+        isLoading: state.ordr.isLoading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchOrdrs: () => dispatch(actionCreator.fetchOrders()),
+    };
+};
  
-export default Orders;
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));
