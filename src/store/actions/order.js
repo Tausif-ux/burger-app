@@ -55,7 +55,7 @@ export const fetchOrdersSuccess = orders => {
     };
 };
 
-export const fetchOrdersFailure = error => {
+export const fetchOrdersFailure = (error) => {
     return {
         type: actionTypes.FETCH_ORDERS_FAILURE,
         error: error
@@ -76,8 +76,8 @@ export const fetchOrders = () => {
             // console.log('fetchOrder successful', modifiedOrders);
         })
         .catch(error => {
-            console.log('fetchOrder unsuccessful');
             dispatch(fetchOrdersFailure(error));
+            console.log('fetchOrder unsuccessful');
         });
     };
 };
