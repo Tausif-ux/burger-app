@@ -12,10 +12,12 @@ const Input = (props) => {
 
     switch (props.elementType) {
         case 'input':
-            inputElement = <input onChange={props.changed} className={classList.join(' ')} {...props.elementConfig} value={props.value} />
+            inputElement = <input onChange={props.changed} className={classList.join(' ')} 
+                                {...props.elementConfig} value={props.value} />
             break;
         case 'textarea':
-            inputElement = <textarea onChange={props.changed} className={classList.join(' ')} {...props.elementConfig} value={props.value} />
+            inputElement = <textarea onChange={props.changed} className={classList.join(' ')} 
+                                {...props.elementConfig} value={props.value} />
             break;
         case 'select':
             inputElement = (

@@ -10,7 +10,7 @@ import * as actionCreator from '../../store/actions/index';
 class Orders extends Component {
 
     componentDidMount() {
-        this.props.onFetchOrdrs();
+        this.props.onFetchOrdrs(this.props.token);
     }
 
     render() {
@@ -29,13 +29,14 @@ class Orders extends Component {
 const mapStateToProps = state => {
     return {
         orders: state.ordr.order,
-        isLoading: state.ordr.isLoading
+        isLoading: state.ordr.isLoading,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOrdrs: () => dispatch(actionCreator.fetchOrders()),
+        onFetchOrdrs: token => dispatch(actionCreator.fetchOrders(token)),
     };
 };
  
