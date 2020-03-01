@@ -8,7 +8,8 @@ const initialState =
 {
     ingredients: null,
     totalPrice: 4,
-    error: false
+    error: false,
+    burgerBuilding: false
 };
 
 //Refactored reducers switch cases
@@ -20,6 +21,7 @@ const addIngredients = (state, action) => {
     const updatedState = updateObject(state, {
         ingredients: updatedIngredients,
         totalPrice: state.totalPrice + INGREDIENTS_PRICES[action.ingType],
+        burgerBuilding: true
     });
     return updatedState;
 };
@@ -31,6 +33,7 @@ const removeIngredients = (state, action) => {
     const updatedState = updateObject(state, {
         ingredients: updatedIngredients,
         totalPrice: state.totalPrice - INGREDIENTS_PRICES[action.ingType],
+        burgerBuilding: true
     });
     return updatedState;
 };
@@ -44,7 +47,8 @@ const initIngredients = (state, action) => {
             chees: ingredients.chees, 
             meat: ingredients.meat },
         totalPrice: 4,
-        error: false
+        error: false,
+        burgerBuilding: false
     };
     return updateObject(state, updatedProps);
 };

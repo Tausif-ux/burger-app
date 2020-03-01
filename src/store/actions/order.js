@@ -62,11 +62,13 @@ export const fetchOrdersFailure = (error) => {
     };
 };
 
-export const fetchOrders = token => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
         //Xasasoap: {ingredients:{sala:1, meat:2}..}, name:'Tausif, email: 'example@exa.com' }---[{salad: 1, meat:2},..}
-        axios.get('orders.json?auth=' + token)
+        const queryParameters = `?auth=${token}&&orderBy="userId"&&equalTo="${userId}"`;
+
+        axios.get(`orders.json${queryParameters}`)
         .then(response => {
             const modifiedOrders = [];
             for (let key in response.data) {
