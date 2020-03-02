@@ -124,19 +124,21 @@ class Auth extends Component {
         if(this.props.isAuthenticated) {
             authRedirect = <Redirect to={this.props.authRedirectPath} />
         }
+
+        const style = {color: 'red'};
         
         return ( 
             <div className={classes.Auth}>
                 {authRedirect}
-                {this.props.error ? <p>{this.props.error.message}</p> : null}
+                {this.props.error ? <p style={style}>{this.props.error.message}</p> : null}
                 <form onSubmit={this.submitHandler}>
                     {formControls}
-                    <Button btnType='Success'>{this.state.isSignUp ? 'SIGN UP' : 'SIGN IN'}</Button>
+                    <Button btnType='Success'>{this.state.isSignUp ? 'SIGN-UP' : 'SIGN-IN'}</Button>
                 </form>
                 <Button 
                     btnType='Success' 
                     clicked={this.switchAuthHandler}>
-                    SWITCH TO {this.state.isSignUp ? 'SIGN IN' : 'SIGN UP'}
+                    <span style={style}>SWITCH TO {this.state.isSignUp ? 'SIGN-IN' : 'SIGN-UP'}</span>
                 </Button>
             </div>
          );
@@ -148,7 +150,6 @@ const mapStateToProps = state => {
         isLoading: state.auth.isLoading,
         error: state.auth.error,
         isAuthenticated: state.auth.token !== null,
-        authRedirectPath: state.auth.authRedirectPath,
         authRedirectPath: state.auth.authRedirectPath,
         burgerBuilding: state.bgrBldr.burgerBuilding
     };

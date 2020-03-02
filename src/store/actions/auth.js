@@ -65,8 +65,12 @@ export const auth = (email, password, isSignUp) => {
             dispatch(checkAuthTimout(response.data.expiresIn));
         })
         .catch(error => {
-            console.log(error.response.data);
-            dispatch(authFail(error.response.data.error));
+            console.log(error.response);
+            if(error.response) { //error from response from server
+                dispatch(authFail(error.response.data.error));
+            } else { //when no internet: error response from brwoser program that does not contain response obj
+                dispatch(authFail(error));
+            }          
         });
     };
 };
