@@ -4,7 +4,6 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import classes from './Burger.module.css';
 
 const Burger = (props) => {
-    console.log(props);
 
     let transformedIngredients = Object.keys(props.ingredients)
 

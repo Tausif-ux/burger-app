@@ -11,7 +11,6 @@ class Modal extends Component {
     }
     
     render() {
-        console.log('[Modal.js] rendered');
 
         return ( 
             <Aux>

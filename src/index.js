@@ -12,7 +12,10 @@ import burgerBuilder from './store/reducers/burgerBuilder';
 import order from './store/reducers/order';
 import authReducer from './store/reducers/auth';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+//NODE.ENV determines whether app in 'development' or 'production' or 'test' mode (Location config file, prebuild with create react app project setup)
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+
 const reducer = combineReducers(
     {
         bgrBldr: burgerBuilder,

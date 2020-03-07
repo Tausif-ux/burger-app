@@ -9,6 +9,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Forms/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actionCtreator from '../../../store/actions/index';
+import { updateObject, checkValidation } from '../../../shared/utility';
 
 class ContactDetails extends Component {
     state = {
@@ -119,13 +120,14 @@ class ContactDetails extends Component {
 
     inputChangedHandler = (event, inputType) => {
 
-        const updatedFormElement = {...this.state.formElements[inputType]};
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.isValid = this.validation(event.target.value, updatedFormElement.validationRules);
-        updatedFormElement.touched = true;
+        const updatedFormElement = updateObject(this.state.formElements[inputType], 
+            { 
+                value: event.target.value,
+                isValid: checkValidation(event.target.value, this.state.formElements[inputType].validationRules),
+                touched: true
+            });
 
-        const updatedFormElements = {...this.state.formElements};
-        updatedFormElements[inputType] = updatedFormElement;
+        const updatedFormElements = updateObject(this.state.formElements, { [inputType]: updatedFormElement });
         
         let isValid = true;
         for(let inputElementIdentifier in updatedFormElements) {
@@ -133,24 +135,6 @@ class ContactDetails extends Component {
         }
 
         this.setState({formElements: updatedFormElements, disabled: !isValid});
-    };
-
-    validation = (value, rules) => {
-        let isValid = true;
-
-        if(rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if(rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if(rules.maxLegth) {
-            isValid = value.length <= rules.maxLegth && isValid;
-        }
-
-        return isValid;
     };
 
     render() {

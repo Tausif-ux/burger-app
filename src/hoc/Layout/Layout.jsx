@@ -21,10 +21,6 @@ class Layout extends Component {
         });
     }
 
-    componentDidMount() {
-        console.log('Layout', this.props);
-    }
-
     render() { 
         return ( 
             <Aux>
